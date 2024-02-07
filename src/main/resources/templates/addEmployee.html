@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>EGAV</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css/styles.css" rel="stylesheet" />
+    </head>
+    <body>
+       
+        <div class="d-flex" id="wrapper">   
+            <!-- Sidebar-->
+            <div  th:replace="fragments/sidebar"></div>
+            <!-- Page content wrapper-->
+            <div id="page-content-wrapper">
+                <!-- Top navigation-->
+                <nav th:replace="fragments/navbar"></nav>
+                
+                
+                
+                <!-- Page content-->
+                <div class="container-fluid">
+                    <h1 class="mt-4">Dodaj Pracownika</h1>
+                    <br>
+                    
+                    <div class="container">
+                        <div class="alert alert-primary" role="alert" th:text="${success}" th:if="${success}"></div>
+                        <div class="alert alert-danger" role="alert" th:text="${error}" th:if="${error}"></div>
+                        <form class="form-container" method="post" th:object="${employee}" th:action="@{/submitEmployee}">
+                            <div>
+                                <label class="form-label" for="name"><strong>Imię:</strong></label>
+                                <input class="input-group" type="text" id="name" placeholder="Wpisz imię" name="name" th:field="*{name}" required>
+                                <p style="color:red" th:errors="*{name}"> </p>
+                            </div>
+
+                            <br>
+                            <div>
+                                <label class="form-label" for="surname"><strong>Nazwisko:</strong></label>
+                                <input class="input-group" type="text" id="surname" placeholder="Wpisz Nazwisko" name="surname" th:field="*{surname}" required>
+                                <p style="color:red" th:errors="*{surname}"> </p>
+                            </div>
+
+                            <br>
+                            <div>
+                                <label class="form-label" for="rate"><strong>Stawka godzinowa:</strong></label>
+                                <input class="input-group" type="text" id="rate" placeholder="Wpisz stawkę" name="rate" th:field="*{rate}" required>
+                                <p style="color:red" th:errors="*{rate}"> </p>
+                            </div>
+                           
+                            <br>
+                            <div>
+                                <label class="form-label" for="advance"><strong>Stawka miesięczna:</strong></label>
+                                <input class="input-group"  type="text" id="advance" placeholder="Wpisz stawkę miesięczną" name="advance" th:field="*{advance}" required>
+                                <p style="color:red" th:errors="*{advance}"> </p>
+                            </div>
+
+                            <br>
+                            <div>
+                                <label class="form-label" for="salaryType"><strong>Typ rozliczenia:</strong></label>
+                                <select class="form-select-sm" type="text" id="salaryType" name="salaryType" th:field="*{salaryType}" required>
+                                    <option th:value="${T(com.allvent.hours.constans.SalaryType).HOURLY}">Godzinowe</option>
+                                    <option th:value="${T(com.allvent.hours.constans.SalaryType).MONTHY}">Miesięczne</option>
+                                    <option th:value="${T(com.allvent.hours.constans.SalaryType).HOURLY_AND_PER_ORDER}">Godzinowe plus akord</option>
+                                </select>
+                                <p style="color:red" th:errors="*{salaryType}"> </p>
+                            </div>
+
+                            <input type="hidden" th:field="*{id}">
+
+                            <br>
+                            <button class="btn btn-secondary" id="sidebarToggle">Dodaj</button>
+                        </form>
+                    </div>
+                    
+                </div>
+
+
+
+
+                
+            </div>
+        </div>
+
+        <!-- Scripts-->
+        <div  th:replace="fragments/scripts"></div>
+
+    </body>
+</html>
