@@ -11,6 +11,37 @@
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
             <!-- Core theme JS-->
             <script src="js/scripts.js"></script>
+
+            <script>
+                // Pobieramy referencję do elementu select
+                const salaryTypeSelect = document.getElementById('salaryType');
+                // Pobieramy referencję do elementu input o id "rate"
+                const rateInput = document.getElementById('rate');
+                // Pobieramy referencję do elementu input o id "advance"
+                const advanceInput = document.getElementById('advance');
+            
+                // Funkcja, która zostanie wywołana za każdym razem, gdy użytkownik zmieni wybraną opcję
+                salaryTypeSelect.addEventListener('change', function() {
+                    // Sprawdzamy, czy aktualnie zaznaczona opcja to "Miesięczne"
+                    if (this.value === "${T(com.allvent.hours.model.employee.SalaryType).MONTHY}") {
+                        // Jeśli tak, ustawiamy typ elementu o id "rate" na "hidden"
+                        rateInput.type = 'hidden';
+                    } else {
+                        // Jeśli nie, przywracamy jego typ na "text"
+                        rateInput.type = 'text';
+                    }
+            
+                    // Sprawdzamy, czy aktualnie zaznaczona opcja to "Godzinowe" lub "Godzinowe + Akord"
+                    if (this.value === "${T(com.allvent.hours.model.employee.SalaryType).HOURLY}" || 
+                        this.value === "${T(com.allvent.hours.model.employee.SalaryType).HOURLY_AND_PER_ORDER}") {
+                        // Jeśli tak, ustawiamy typ elementu o id "advance" na "hidden"
+                        advanceInput.type = 'hidden';
+                    } else {
+                        // Jeśli nie, przywracamy jego typ na "text"
+                        advanceInput.type = 'text';
+                    }
+                });
+            </script>
         </div>
-    </body>
+    </body>     
 </html>

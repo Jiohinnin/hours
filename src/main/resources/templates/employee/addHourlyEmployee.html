@@ -9,19 +9,17 @@
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="css/styles.css" rel="stylesheet" />
+        <link th:href="@{/css/styles.css}" rel="stylesheet" />
     </head>
     <body>
        
         <div class="d-flex" id="wrapper">   
             <!-- Sidebar-->
-            <div  th:replace="fragments/sidebar"></div>
+            <div  th:replace="~{fragments/sidebar}"></div>
             <!-- Page content wrapper-->
             <div id="page-content-wrapper">
                 <!-- Top navigation-->
-                <nav th:replace="fragments/navbar"></nav>
-                
-                
+                <nav th:replace="~{fragments/navbar}"></nav>
                 
                 <!-- Page content-->
                 <div class="container-fluid">
@@ -31,7 +29,8 @@
                     <div class="container">
                         <div class="alert alert-primary" role="alert" th:text="${success}" th:if="${success}"></div>
                         <div class="alert alert-danger" role="alert" th:text="${error}" th:if="${error}"></div>
-                        <form class="form-container" method="post" th:object="${employee}" th:action="@{/submitEmployee}">
+                        <form class="form-container" method="post" th:object="${employee}" th:action="@{/emp/sbmtHourlyEmployee}">
+
                             <div>
                                 <label class="form-label" for="name"><strong>Imię:</strong></label>
                                 <input class="input-group" type="text" id="name" placeholder="Wpisz imię" name="name" th:field="*{name}" required>
@@ -44,7 +43,6 @@
                                 <input class="input-group" type="text" id="surname" placeholder="Wpisz Nazwisko" name="surname" th:field="*{surname}" required>
                                 <p style="color:red" th:errors="*{surname}"> </p>
                             </div>
-
                             <br>
                             <div>
                                 <label class="form-label" for="rate"><strong>Stawka godzinowa:</strong></label>
@@ -52,24 +50,8 @@
                                 <p style="color:red" th:errors="*{rate}"> </p>
                             </div>
                            
-                            <br>
-                            <div>
-                                <label class="form-label" for="advance"><strong>Stawka miesięczna:</strong></label>
-                                <input class="input-group"  type="text" id="advance" placeholder="Wpisz stawkę miesięczną" name="advance" th:field="*{advance}" required>
-                                <p style="color:red" th:errors="*{advance}"> </p>
-                            </div>
-
-                            <br>
-                            <div>
-                                <label class="form-label" for="salaryType"><strong>Typ rozliczenia:</strong></label>
-                                <select class="form-select-sm" type="text" id="salaryType" name="salaryType" th:field="*{salaryType}" required>
-                                    <option th:value="${T(com.allvent.hours.constans.SalaryType).HOURLY}">Godzinowe</option>
-                                    <option th:value="${T(com.allvent.hours.constans.SalaryType).MONTHY}">Miesięczne</option>
-                                    <option th:value="${T(com.allvent.hours.constans.SalaryType).HOURLY_AND_PER_ORDER}">Godzinowe plus akord</option>
-                                </select>
-                                <p style="color:red" th:errors="*{salaryType}"> </p>
-                            </div>
-
+                            <br>    
+                            <input type="hidden" th:field="*{salaryType}">
                             <input type="hidden" th:field="*{id}">
 
                             <br>
@@ -87,7 +69,8 @@
         </div>
 
         <!-- Scripts-->
-        <div  th:replace="fragments/scripts"></div>
+        <div  th:replace="~{fragments/scripts}"></div>
 
     </body>
 </html>
+   

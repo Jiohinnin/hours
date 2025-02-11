@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>EGAV</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link th:href="@{/css/styles.css}" rel="stylesheet" />
+        
+    </head>
+    <body>
+       
+        <div class="d-flex" id="wrapper">   
+            <!-- Sidebar-->
+            <div  th:replace="~{fragments/sidebar}"></div>
+            <!-- Page content wrapper-->
+            <div id="page-content-wrapper">
+                <!-- Top navigation-->
+                <nav th:replace="~{fragments/navbar}"></nav>
+                
+                
+                <!-- Page content-->
+                <div class="container-fluid">
+                    <!-- Employee Table-->
+                    <div class="form-container">
+                        <table class="table" th:object="${employees}">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Surname</th>
+                                    <th>SalaryType</th>
+                                    <th>Bonus</th>
+                                    <th>Hours</th>
+                                    <th>Type</th>
+                                    <th>Rate</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:if="${employees.empty}">
+                                        <td colspan="2"> No Employees Available </td>
+                                </tr>
+                                <tr th:each="employee : ${employees}">
+                                    <td><span th:text="${employee.id}"> ID </span></td>
+                                    <td><span th:text="${employee.name}"> Name </span></td>
+                                    <td><span th:text="${employee.surname}"> Surname </span></td>
+                                    <td><span th:text="${employee.salaryType.name}"> SalaryType </span></td>
+                                    <td><span th:text="${employee.bonus}"> Bonus </span></td>
+                                    <td><span th:text="${employee.hours}"> Hours </span></td>
+                                    <td>
+                                        <span th:if="${employee.salaryType.name == 'Miesięczne'}"> Miesięczne</span>
+                                        <span th:unless="${employee.salaryType.name == 'Miesięczne'}"> Godzinowe </span>
+                                    </td>
+                                    <td>
+                                        <span th:if="${employee.salaryType.name == 'Miesięczne'}" th:text="${employee.advance}"> Miesięczne</span>
+                                        <span th:unless="${employee.salaryType.name == 'Miesięczne'}" th:text="${employee.rate}"> Godzinowe </span>
+                                    </td>                           
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+
+
+
+                
+            </div>
+        </div>
+
+        <!-- Scripts-->
+        <div  th:replace="~{fragments/scripts}"></div>
+
+    </body>
+</html>

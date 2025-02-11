@@ -4,7 +4,7 @@ package com.allvent.hours.model.employee;
 
 import java.util.List;
 
-import com.allvent.hours.constans.SalaryType;
+
 import com.allvent.hours.model.hours.Hours;
 
 import jakarta.persistence.*;
@@ -17,11 +17,20 @@ import lombok.Setter;
 @Getter
 @Setter
 @Table(name = "employee")
-public  class Employee {
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(
+    name = "SALARY_TYPE",
+    discriminatorType = DiscriminatorType.STRING
+)
+public abstract class Employee {
      
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "salary-type", nullable = false)
+    @Enumerated(value = EnumType.STRING)
+    private SalaryType salaryType;
 
     @Column(name = "name", nullable = false)
     @NotBlank (message = "Name cannot be blank!!!")
@@ -33,15 +42,6 @@ public  class Employee {
     @NotEmpty (message = "Surname cannot be empty!!!")
     private String surname;
 
-    @Column(name = "salary-type", nullable = false)
-    private SalaryType salaryType;
-
-    @Column(name = "rate", nullable = false)
-    private double rate;
-
-    @Column(name = "advance", nullable = false)
-    private double advance;
-
     @Column(name = "bonus", nullable = false)
     private double bonus = 0;
 
@@ -52,27 +52,29 @@ public  class Employee {
 
     }
 
-    public Employee(String name, String surname, SalaryType salaryType, double rate, double advance) {
+    public Employee(SalaryType salaryType){
+        setSalaryType(salaryType);
+    }
+
+    public Employee(String name, String surname, SalaryType salaryType) {
         setName(name);
         setSurname(surname);
         setSalaryType(salaryType);
-        setRate(rate);
-        setAdvance(advance);
     }
+
 
     @Override
     public String toString() {
         return "{" +
             " id='" + getId() + "'" +
+            ", salaryType='" + getSalaryType() + "'" +
             ", name='" + getName() + "'" +
             ", surname='" + getSurname() + "'" +
-            ", salaryType='" + getSalaryType() + "'" +
-            ", rate='" + getRate() + "'" +
-            ", advance='" + getAdvance() + "'" +
             ", bonus='" + getBonus() + "'" +
             ", hours='" + getHours() + "'" +
             "}";
     }
+    
 }
 
     

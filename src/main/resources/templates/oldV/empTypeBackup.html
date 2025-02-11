@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>EGAV</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link th:href="@{/css/styles.css}" rel="stylesheet" />
+        
+    </head>
+    <body>
+       
+        <div class="d-flex" id="wrapper">   
+            <!-- Sidebar-->
+            <div  th:replace="~{fragments/sidebar}"></div>
+            <!-- Page content wrapper-->
+            <div id="page-content-wrapper">
+                <!-- Top navigation-->
+                <nav th:replace="~{fragments/navbar}"></nav>
+                
+                
+                
+                <!-- Page content-->
+                <div class="container-fluid">
+                    <h1 class="mt-4">Dodaj Pracownika</h1>
+                    <br>
+                    
+                    <div class="container">
+                        
+                        <form class="form-container" th:object="${slt}" method="post" th:action="@{/emp/sbmtEmpType}">
+                            <br>    
+                            <div>
+                                    <label class="form-label" for="slt"><strong>Wybierz typ rozliczenia:</strong></label>
+                                    <select class="form-select-sm" type="text" id="slt" name="slt" required>
+                                        <option th:each="slt : ${slt}" th:value="${slt}" th:text="${slt.name}"></option>
+                                    </select>
+                                </div>
+
+                                <!--
+                                    <p style="color:red" th:errors="*{surname}"> </p>
+                                    <p style="color:red" th:errors="*{name}"> </p>
+                                -->
+
+                                <br>
+                                <button class="btn btn-secondary" id="sidebarToggle">Dalej</button>
+                            </div>
+                        </form>
+                    </div>
+                   
+                </div>
+
+
+
+
+                
+            </div>
+        </div>
+
+        <!-- Scripts-->
+        <div  th:replace="~{fragments/scripts}"></div>
+
+    </body>
+</html>
